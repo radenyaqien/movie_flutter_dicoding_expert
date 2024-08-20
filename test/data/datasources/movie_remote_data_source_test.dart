@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:ditonton/data/datasources/movie_remote_data_source.dart';
-import 'package:ditonton/data/models/movie_detail_model.dart';
-import 'package:ditonton/data/models/movie_response.dart';
-import 'package:ditonton/common/exception.dart';
+import 'package:movieflutter/data/datasources/movie_remote_data_source.dart';
+import 'package:movieflutter/data/models/movie_detail_model.dart';
+import 'package:movieflutter/data/models/movie_response.dart';
+import 'package:movieflutter/common/exception.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
@@ -116,13 +116,13 @@ void main() {
   group('get movie detail', () {
     final tId = 1;
     final tMovieDetail = MovieDetailResponse.fromJson(
-        json.decode(readJson('dummy_data/movie_detail.json')));
+        json.decode(readJson('dummy_data/detail.json')));
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
           .thenAnswer((_) async =>
-              http.Response(readJson('dummy_data/movie_detail.json'), 200));
+              http.Response(readJson('dummy_data/detail.json'), 200));
       // act
       final result = await dataSource.getMovieDetail(tId);
       // assert
@@ -143,7 +143,7 @@ void main() {
 
   group('get movie recommendations', () {
     final tMovieList = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/movie_recommendations.json')))
+            json.decode(readJson('dummy_data/recommendations.json')))
         .movieList;
     final tId = 1;
 
@@ -153,7 +153,7 @@ void main() {
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/movie_recommendations.json'), 200));
+              readJson('dummy_data/recommendations.json'), 200));
       // act
       final result = await dataSource.getMovieRecommendations(tId);
       // assert
@@ -175,7 +175,7 @@ void main() {
 
   group('search movies', () {
     final tSearchResult = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/search_spiderman_movie.json')))
+            json.decode(readJson('dummy_data/search.json')))
         .movieList;
     final tQuery = 'Spiderman';
 
@@ -184,7 +184,7 @@ void main() {
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/search_spiderman_movie.json'), 200));
+              readJson('dummy_data/search.json'), 200));
       // act
       final result = await dataSource.searchMovies(tQuery);
       // assert

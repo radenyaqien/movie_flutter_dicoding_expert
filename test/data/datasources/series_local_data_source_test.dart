@@ -1,28 +1,29 @@
 import 'package:movieflutter/common/exception.dart';
-import 'package:movieflutter/data/datasources/movie_local_data_source.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:movieflutter/data/datasources/series/series_local_data_source.dart';
 
 import '../../dummy_data/dummy_objects.dart';
+import '../../dummy_data/series/series_dummy_objects.dart';
 import '../../helpers/test_helper.mocks.dart';
 
 void main() {
-  late MovieLocalDataSourceImpl dataSource;
+  late SeriesLocalDataSourceImpl dataSource;
   late MockDatabaseHelper mockDatabaseHelper;
 
   setUp(() {
     mockDatabaseHelper = MockDatabaseHelper();
-    dataSource = MovieLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
+    dataSource = SeriesLocalDataSourceImpl(databaseHelper: mockDatabaseHelper);
   });
 
   group('save watchlist', () {
     test('should return success message when insert to database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testMovieTable))
+      when(mockDatabaseHelper.insertWatchlistTV(testSeriesTable))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.insertWatchlist(testMovieTable);
+      final result = await dataSource.insertWatchlistSeries(testSeriesTable);
       // assert
       expect(result, 'Added to Watchlist');
     });
@@ -30,10 +31,10 @@ void main() {
     test('should throw DatabaseException when insert to database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.insertWatchlist(testMovieTable))
+      when(mockDatabaseHelper.insertWatchlistTV(testSeriesTable))
           .thenThrow(Exception());
       // act
-      final call = dataSource.insertWatchlist(testMovieTable);
+      final call = dataSource.insertWatchlistSeries(testSeriesTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
@@ -43,10 +44,10 @@ void main() {
     test('should return success message when remove from database is success',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testMovieTable))
+      when(mockDatabaseHelper.removeWatchlistTV(testSeriesTable))
           .thenAnswer((_) async => 1);
       // act
-      final result = await dataSource.removeWatchlist(testMovieTable);
+      final result = await dataSource.removeWatchlistSeries(testSeriesTable);
       // assert
       expect(result, 'Removed from Watchlist');
     });
@@ -54,10 +55,10 @@ void main() {
     test('should throw DatabaseException when remove from database is failed',
         () async {
       // arrange
-      when(mockDatabaseHelper.removeWatchlist(testMovieTable))
+      when(mockDatabaseHelper.removeWatchlistTV(testSeriesTable))
           .thenThrow(Exception());
       // act
-      final call = dataSource.removeWatchlist(testMovieTable);
+      final call = dataSource.removeWatchlistSeries(testSeriesTable);
       // assert
       expect(() => call, throwsA(isA<DatabaseException>()));
     });
@@ -68,19 +69,19 @@ void main() {
 
     test('should return Movie Detail Table when data is found', () async {
       // arrange
-      when(mockDatabaseHelper.getMovieById(tId))
+      when(mockDatabaseHelper.getSeriesById(tId))
           .thenAnswer((_) async => testMovieMap);
       // act
-      final result = await dataSource.getMovieById(tId);
+      final result = await dataSource.getSeriesById(tId);
       // assert
-      expect(result, testMovieTable);
+      expect(result, testSeriesTable);
     });
 
     test('should return null when data is not found', () async {
       // arrange
       when(mockDatabaseHelper.getMovieById(tId)).thenAnswer((_) async => null);
       // act
-      final result = await dataSource.getMovieById(tId);
+      final result = await dataSource.getSeriesById(tId);
       // assert
       expect(result, null);
     });
@@ -90,11 +91,11 @@ void main() {
     test('should return list of MovieTable from database', () async {
       // arrange
       when(mockDatabaseHelper.getWatchlistMovies())
-          .thenAnswer((_) async => [testMovieMap]);
+          .thenAnswer((_) async => [testSeriesMap]);
       // act
-      final result = await dataSource.getWatchlistMovies();
+      final result = await dataSource.getWatchlistSeries();
       // assert
-      expect(result, [testMovieTable]);
+      expect(result, [testSeriesTable]);
     });
   });
 }

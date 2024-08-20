@@ -1,0 +1,31 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/qFYDJUIFh8zgEDy3EvnHwhgOl0S.jpg",
+      "id": 61222,
+      "name": "BoJack Horseman",
+      "original_name": "BoJack Horseman",
+      "overview": "Meet the most beloved sitcom horse of the 90s - 20 years later. BoJack Horseman was the star of the hit TV show \"Horsin' Around,\" but today he's washed up, living in Hollywood, complaining about everything, and wearing colorful sweaters.",
+      "poster_path": "/pB9L0jAnEQLMKgexqCEocEW8TA.jpg",
+      "media_type": "tv",
+      "adult": false,
+      "original_language": "en",
+      "genre_ids": [
+        16,
+        35,
+        18
+      ],
+      "popularity": 179.509,
+      "first_air_date": "2014-08-22",
+      "vote_average": 8.555,
+      "vote_count": 2333,
+      "origin_country": [
+        "US"
+      ]
+    }
+
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}
