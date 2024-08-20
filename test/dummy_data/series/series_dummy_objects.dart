@@ -3,8 +3,9 @@ import 'package:movieflutter/domain/entities/genre.dart';
 import 'package:movieflutter/domain/entities/movie.dart';
 import 'package:movieflutter/domain/entities/movie_detail.dart';
 import 'package:movieflutter/domain/entities/series.dart';
+import 'package:movieflutter/domain/entities/series/tv_detail.dart';
 
-final testMovie = Series(
+final testSeries = Series(
     adult: false,
     backdropPath: "/uCY1j1YqfDWRbbS7hJwd9szX1sJ.jpg",
     genreIds: [10766, 18, 35],
@@ -20,33 +21,44 @@ final testMovie = Series(
     voteAverage: 4.912,
     voteCount: 18);
 
-final testMovieList = [testMovie];
+final testSeriesList = [testSeries];
 
-final testMovieDetail = MovieDetail(
-  adult: false,
+final testSeriesDetail = SeriesDetail(
+  homepage: "homepage",
   backdropPath: 'backdropPath',
   genres: [Genre(id: 1, name: 'Action')],
   id: 1,
-  originalTitle: 'originalTitle',
+  originalName: 'originalName',
+  originalLanguage: "en",
+  originCountry: ["us"],
   overview: 'overview',
   posterPath: 'posterPath',
-  releaseDate: 'releaseDate',
-  runtime: 120,
-  title: 'title',
+  numberOfEpisodes: 20,
+  numberOfSeasons: 1,
+  inProduction: true,
+  languages: ["id"],
+  popularity: 6.5,
+  seasons: [],
+  tagline: "tagline",
+  status: "status",
+  type: "type",
+  productionCompanies: [],
+  lastAirDate: DateTime.parse("2024-01-01"),
+  name: 'name',
   voteAverage: 1,
   voteCount: 1,
 );
 
-final testWatchlistMovie = Movie.watchlist(
+final testWatchlistSeries = Series.watchList(
   id: 1,
-  title: 'title',
+  name: 'name',
   posterPath: 'posterPath',
   overview: 'overview',
 );
 
 final testSeriesTable = SeriesTable(
   id: 1,
-  name: 'title',
+  name: 'name',
   posterPath: 'posterPath',
   overview: 'overview',
 );
@@ -55,5 +67,5 @@ final testSeriesMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
-  'title': 'title',
+  'name': 'name',
 };
