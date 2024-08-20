@@ -53,7 +53,7 @@ class SeriesModel extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "adult": adult,
-        "backdropPath": backdropPath == null ? null : backdropPath,
+        "backdrop_path": backdropPath == null ? null : backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
         "origin_country": List<dynamic>.from(originCountry.map((x) => x)),
