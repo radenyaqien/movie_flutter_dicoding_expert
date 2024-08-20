@@ -1,4 +1,4 @@
-name: ditonton
+name: movieflutter
 description: A new Flutter application.
 
 # The following line prevents the package from being accidentally published to
@@ -38,10 +38,12 @@ dependencies:
   get_it: ^7.1.3
   sqflite: ^2.0.0+3
   path_provider: ^2.0.2
+  json_annotation: ^4.9.0
+  build_runner: ^2.3.3
 
 dev_dependencies:
   mockito: ^5.0.8
-  build_runner: ^2.0.4
+  json_serializable: ^6.6.1
   flutter_test:
     sdk: flutter
 

@@ -1,6 +1,6 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/popular_movies_notifier.dart';
-import 'package:ditonton/presentation/widgets/movie_card_list.dart';
+import 'package:movieflutter/common/state_enum.dart';
+import 'package:movieflutter/presentation/provider/popular_movies_notifier.dart';
+import 'package:movieflutter/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
