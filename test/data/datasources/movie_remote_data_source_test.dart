@@ -116,13 +116,13 @@ void main() {
   group('get movie detail', () {
     final tId = 1;
     final tMovieDetail = MovieDetailResponse.fromJson(
-        json.decode(readJson('dummy_data/detail.json')));
+        json.decode(readJson('dummy_data/movie_detail.json')));
 
     test('should return movie detail when the response code is 200', () async {
       // arrange
       when(mockHttpClient.get(Uri.parse('$BASE_URL/movie/$tId?$API_KEY')))
           .thenAnswer((_) async =>
-              http.Response(readJson('dummy_data/detail.json'), 200));
+              http.Response(readJson('dummy_data/movie_detail.json'), 200));
       // act
       final result = await dataSource.getMovieDetail(tId);
       // assert
@@ -143,7 +143,7 @@ void main() {
 
   group('get movie recommendations', () {
     final tMovieList = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/recommendations.json')))
+            json.decode(readJson('dummy_data/movie_recommendations.json')))
         .movieList;
     final tId = 1;
 
@@ -153,7 +153,7 @@ void main() {
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/movie/$tId/recommendations?$API_KEY')))
           .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/recommendations.json'), 200));
+              readJson('dummy_data/movie_recommendations.json'), 200));
       // act
       final result = await dataSource.getMovieRecommendations(tId);
       // assert
@@ -175,7 +175,7 @@ void main() {
 
   group('search movies', () {
     final tSearchResult = MovieResponse.fromJson(
-            json.decode(readJson('dummy_data/search.json')))
+            json.decode(readJson('dummy_data/search_spiderman_movie.json')))
         .movieList;
     final tQuery = 'Spiderman';
 
@@ -184,7 +184,7 @@ void main() {
       when(mockHttpClient
               .get(Uri.parse('$BASE_URL/search/movie?$API_KEY&query=$tQuery')))
           .thenAnswer((_) async => http.Response(
-              readJson('dummy_data/search.json'), 200));
+              readJson('dummy_data/search_spiderman_movie.json'), 200));
       // act
       final result = await dataSource.searchMovies(tQuery);
       // assert
