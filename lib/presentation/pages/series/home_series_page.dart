@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:movieflutter/common/constants.dart';
 import 'package:movieflutter/common/state_enum.dart';
@@ -27,6 +28,7 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(
         () => Provider.of<SeriesListNotifier>(context, listen: false)
           ..fetchNowPlayingSeries()

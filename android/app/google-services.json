@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1067476242531",
+    "project_id": "movie-flutter-dicoding",
+    "storage_bucket": "movie-flutter-dicoding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1067476242531:android:6acbd0dc5ca1a17a4be856",
+        "android_client_info": {
+          "package_name": "com.radenyaqien.movieflutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArQhKSUoqjIINjMGCKFA4eq9WiFQ-MLvc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -7,7 +7,7 @@ import '../pages/series/home_series_page.dart';
 import '../pages/watchlist_movies_page.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key, key});
+  const CustomDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
