@@ -15,15 +15,12 @@ class DatabaseHelper {
   static Database? _database;
 
   Future<Database?> get database async {
-    if (_database == null) {
-      _database = await _initDb();
-    }
+    _database ??= await _initDb();
     return _database;
   }
 
   static const String _tblWatchlist = 'watchlist';
   static const String _tblWatchlistTV = 'watchlist_tv';
-
 
   Future<Database> _initDb() async {
     final path = await getDatabasesPath();

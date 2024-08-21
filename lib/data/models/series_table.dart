@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:movieflutter/domain/entities/series.dart';
-import 'package:movieflutter/domain/entities/series/tv_detail.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
+import 'package:movieflutter/domain/entities/series/series_detail.dart';
 
 class SeriesTable extends Equatable {
   final int id;
@@ -8,7 +8,7 @@ class SeriesTable extends Equatable {
   final String? posterPath;
   final String? overview;
 
-  SeriesTable({
+  const SeriesTable({
     required this.id,
     required this.name,
     required this.posterPath,
@@ -44,6 +44,5 @@ class SeriesTable extends Equatable {
       );
 
   @override
-
   List<Object?> get props => [id, name, posterPath, overview];
 }

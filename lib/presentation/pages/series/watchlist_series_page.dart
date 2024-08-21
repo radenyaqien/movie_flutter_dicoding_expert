@@ -8,6 +8,8 @@ import 'package:provider/provider.dart';
 class WatchlistSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/watchlist-series';
 
+  const WatchlistSeriesPage({super.key});
+
   @override
   _WatchlistSeriesPageState createState() => _WatchlistSeriesPageState();
 }
@@ -28,6 +30,7 @@ class _WatchlistSeriesPageState extends State<WatchlistSeriesPage>
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Provider.of<WatchlistSeriesNotifier>(context, listen: false)
         .fetchWatchlistSeries();
@@ -37,14 +40,14 @@ class _WatchlistSeriesPageState extends State<WatchlistSeriesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist Tv'),
+        title: const Text('Watchlist Tv'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistSeriesNotifier>(
           builder: (context, data, child) {
             if (data.watchlistState == RequestState.Loading) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             } else if (data.watchlistState == RequestState.Loaded) {
@@ -57,7 +60,7 @@ class _WatchlistSeriesPageState extends State<WatchlistSeriesPage>
               );
             } else {
               return Center(
-                key: Key('error_message'),
+                key: const Key('error_message'),
                 child: Text(data.message),
               );
             }

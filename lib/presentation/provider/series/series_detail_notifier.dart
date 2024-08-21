@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:movieflutter/common/state_enum.dart';
-import 'package:movieflutter/domain/entities/series.dart';
-import 'package:movieflutter/domain/entities/series/tv_detail.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
+import 'package:movieflutter/domain/entities/series/series_detail.dart';
 import 'package:movieflutter/domain/usecases/series/get_series_detail.dart';
 import 'package:movieflutter/domain/usecases/series/get_series_recommendations.dart';
 import 'package:movieflutter/domain/usecases/series/get_watchlist_series_status.dart';
@@ -38,7 +38,7 @@ class SeriesDetailNotifier extends ChangeNotifier {
 
   List<Series> _seriesRecommendations = [];
 
-  List<Series> get movieRecommendations => _seriesRecommendations;
+  List<Series> get seriesRecommendations => _seriesRecommendations;
 
   RequestState _recommendationState = RequestState.Empty;
 

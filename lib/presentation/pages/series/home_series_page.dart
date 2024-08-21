@@ -2,19 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:movieflutter/common/constants.dart';
 import 'package:movieflutter/common/state_enum.dart';
-import 'package:movieflutter/domain/entities/series.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
 // ignore: unused_import
 import 'package:movieflutter/presentation/pages/popular_movies_page.dart';
+import 'package:movieflutter/presentation/pages/series/now_playing_series_page.dart';
 import 'package:movieflutter/presentation/pages/series/popular_series_page.dart';
 import 'package:movieflutter/presentation/pages/series/search_series_page.dart';
 import 'package:movieflutter/presentation/pages/series/series_detail_page.dart';
-import 'package:movieflutter/presentation/pages/top_rated_movies_page.dart';
+import 'package:movieflutter/presentation/pages/series/top_rated_series_page.dart';
 import 'package:movieflutter/presentation/provider/series/series_list_notifier.dart';
 import 'package:movieflutter/presentation/widgets/custom_drawer.dart';
 import 'package:provider/provider.dart';
 
 class HomeSeriesPage extends StatefulWidget {
   static const String ROUTE_NAME = "/HomeSeriesPage";
+
+  const HomeSeriesPage({super.key});
 
   @override
   _HomeMoviePageState createState() => _HomeMoviePageState();
@@ -34,15 +37,15 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Text('Tv Series'),
+        title: const Text('Tv Series'),
         actions: [
           IconButton(
             onPressed: () {
               Navigator.pushNamed(context, SearchSeriesPage.ROUTE_NAME);
             },
-            icon: Icon(Icons.search),
+            icon: const Icon(Icons.search),
           )
         ],
       ),
@@ -52,20 +55,21 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Now Playing',
-                style: kHeading6,
+              _buildSubHeading(
+                title: 'Now Playing',
+                onTap: () => Navigator.pushNamed(
+                    context, NowPlayingSeriesPage.ROUTE_NAME),
               ),
               Consumer<SeriesListNotifier>(builder: (context, data, child) {
                 final state = data.nowPlayingState;
                 if (state == RequestState.Loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
                   return SeriesList(data.nowPlayingSeries);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               _buildSubHeading(
@@ -76,30 +80,30 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
               Consumer<SeriesListNotifier>(builder: (context, data, child) {
                 final state = data.popularSeriesState;
                 if (state == RequestState.Loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
                   return SeriesList(data.popularSeries);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () =>
-                    Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                    Navigator.pushNamed(context, TopRatedSeriesPage.ROUTE_NAME),
               ),
               Consumer<SeriesListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedSeriesState;
                 if (state == RequestState.Loading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else if (state == RequestState.Loaded) {
                   return SeriesList(data.topRatedSeries);
                 } else {
-                  return Text('Failed');
+                  return const Text('Failed');
                 }
               }),
             ],
@@ -119,8 +123,8 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
         ),
         InkWell(
           onTap: onTap,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
             child: Row(
               children: [Text('See More'), Icon(Icons.arrow_forward_ios)],
             ),
@@ -134,11 +138,11 @@ class _HomeMoviePageState extends State<HomeSeriesPage> {
 class SeriesList extends StatelessWidget {
   final List<Series> series;
 
-  SeriesList(this.series);
+  const SeriesList(this.series, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -155,13 +159,13 @@ class SeriesList extends StatelessWidget {
                 );
               },
               child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(16)),
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${tvseri.posterPath}',
-                  placeholder: (context, url) => Center(
+                  placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
             ),

@@ -7,14 +7,14 @@ import '../pages/series/home_series_page.dart';
 import '../pages/watchlist_movies_page.dart';
 
 class CustomDrawer extends StatelessWidget {
-   CustomDrawer({key});
+  const CustomDrawer({super.key, key});
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: [
-          UserAccountsDrawerHeader(
+          const UserAccountsDrawerHeader(
             currentAccountPicture: CircleAvatar(
               backgroundImage: AssetImage('assets/circle-g.png'),
             ),
@@ -22,28 +22,29 @@ class CustomDrawer extends StatelessWidget {
             accountEmail: Text('movieflutter@dicoding.com'),
           ),
           ListTile(
-            leading: Icon(Icons.movie),
-            title: Text('Movies'),
+            leading: const Icon(Icons.movie),
+            title: const Text('Movies'),
             onTap: () {
               Navigator.pushNamed(context, HomeMoviePage.ROUTE_NAME);
             },
           ),
           ListTile(
-            leading: Icon(Icons.save_alt),
-            title: Text('Watchlist'),
+            leading: const Icon(Icons.save_alt),
+            title: const Text('Watchlist'),
             onTap: () {
               Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
             },
           ),
-          Divider(),
+          const Divider(),
           ListTile(
-            leading: Icon(Icons.tv),
-            title: Text('TV Shows'),
-            onTap: () => Navigator.pushNamed(context, HomeSeriesPage.ROUTE_NAME),
+            leading: const Icon(Icons.tv),
+            title: const Text('TV Shows'),
+            onTap: () =>
+                Navigator.pushNamed(context, HomeSeriesPage.ROUTE_NAME),
           ),
           ListTile(
-            leading: Icon(Icons.save_alt),
-            title: Text('Watchlist Tv'),
+            leading: const Icon(Icons.save_alt),
+            title: const Text('Watchlist Tv'),
             onTap: () {
               Navigator.pushNamed(context, WatchlistSeriesPage.ROUTE_NAME);
             },
@@ -52,8 +53,8 @@ class CustomDrawer extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
             },
-            leading: Icon(Icons.info_outline),
-            title: Text('About'),
+            leading: const Icon(Icons.info_outline),
+            title: const Text('About'),
           ),
         ],
       ),

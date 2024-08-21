@@ -1,7 +1,7 @@
 import 'package:movieflutter/common/state_enum.dart';
 import 'package:flutter/material.dart';
 
-import '../../../domain/entities/series.dart';
+import '../../../domain/entities/series/series.dart';
 import '../../../domain/usecases/series/get_now_playing_series.dart';
 import '../../../domain/usecases/series/get_popular_series.dart';
 import '../../../domain/usecases/series/get_top_rated_series.dart';

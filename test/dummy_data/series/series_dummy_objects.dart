@@ -1,16 +1,14 @@
 import 'package:movieflutter/data/models/series_table.dart';
 import 'package:movieflutter/domain/entities/genre.dart';
-import 'package:movieflutter/domain/entities/movie.dart';
-import 'package:movieflutter/domain/entities/movie_detail.dart';
-import 'package:movieflutter/domain/entities/series.dart';
-import 'package:movieflutter/domain/entities/series/tv_detail.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
+import 'package:movieflutter/domain/entities/series/series_detail.dart';
 
 final testSeries = Series(
     adult: false,
     backdropPath: "/uCY1j1YqfDWRbbS7hJwd9szX1sJ.jpg",
-    genreIds: [10766, 18, 35],
+    genreIds: const [10766, 18, 35],
     id: 237480,
-    originCountry: ["BR"],
+    originCountry: const ["BR"],
     originalLanguage: "pt",
     originalName: "No Rancho Fundo",
     overview: "",
@@ -26,23 +24,23 @@ final testSeriesList = [testSeries];
 final testSeriesDetail = SeriesDetail(
   homepage: "homepage",
   backdropPath: 'backdropPath',
-  genres: [Genre(id: 1, name: 'Action')],
+  genres: const [Genre(id: 1, name: 'Action')],
   id: 1,
   originalName: 'originalName',
   originalLanguage: "en",
-  originCountry: ["us"],
+  originCountry: const ["us"],
   overview: 'overview',
   posterPath: 'posterPath',
   numberOfEpisodes: 20,
   numberOfSeasons: 1,
   inProduction: true,
-  languages: ["id"],
+  languages: const ["id"],
   popularity: 6.5,
-  seasons: [],
+  seasons: const [],
   tagline: "tagline",
   status: "status",
   type: "type",
-  productionCompanies: [],
+  productionCompanies: const [],
   lastAirDate: DateTime.parse("2024-01-01"),
   name: 'name',
   voteAverage: 1,
@@ -56,7 +54,7 @@ final testWatchlistSeries = Series.watchList(
   overview: 'overview',
 );
 
-final testSeriesTable = SeriesTable(
+const testSeriesTable = SeriesTable(
   id: 1,
   name: 'name',
   posterPath: 'posterPath',

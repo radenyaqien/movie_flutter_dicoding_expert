@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../../../common/state_enum.dart';
-import '../../../domain/entities/series.dart';
+import '../../../domain/entities/series/series.dart';
 import '../../../domain/usecases/series/get_top_rated_series.dart';
 
 class TopRatedSeriesNotifier extends ChangeNotifier {

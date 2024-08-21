@@ -4,20 +4,20 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:movieflutter/data/models/genre_model.dart';
-import 'package:movieflutter/data/models/production_company.dart';
-import 'package:movieflutter/data/models/production_country.dart';
-import 'package:movieflutter/data/models/season.dart';
-import 'package:movieflutter/data/models/spoken_languange.dart';
-import 'package:movieflutter/domain/entities/series/tv_detail.dart';
+import 'package:movieflutter/data/models/production_company_model.dart';
+import 'package:movieflutter/data/models/production_country_model.dart';
+import 'package:movieflutter/data/models/season_model.dart';
+import 'package:movieflutter/data/models/spoken_languange_model.dart';
+import 'package:movieflutter/domain/entities/series/series_detail.dart';
 
-import 'created_by.dart';
-import 'episode_to_air.dart';
-import 'network.dart';
+import 'created_by_model.dart';
+import 'episode_to_air_model.dart';
+import 'network_model.dart';
 
 class DetailSeriesResponse extends Equatable {
   final bool adult;
   final String? backdropPath;
-  final List<CreatedBy>? createdBy;
+  final List<CreatedByModel>? createdBy;
   final List<int> episodeRunTime;
   final DateTime? firstAirDate;
   final List<GenreModel>? genres;
@@ -26,10 +26,10 @@ class DetailSeriesResponse extends Equatable {
   final bool inProduction;
   final List<String>? languages;
   final DateTime? lastAirDate;
-  final TEpisodeToAir? lastEpisodeToAir;
+  final TEpisodeToAirModel? lastEpisodeToAir;
   final String name;
-  final TEpisodeToAir? nextEpisodeToAir;
-  final List<Network>? networks;
+  final TEpisodeToAirModel? nextEpisodeToAir;
+  final List<NetworkModel>? networks;
   final int numberOfEpisodes;
   final int numberOfSeasons;
   final List<String>? originCountry;
@@ -38,17 +38,17 @@ class DetailSeriesResponse extends Equatable {
   final String overview;
   final double popularity;
   final String? posterPath;
-  final List<ProductionCompany>? productionCompanies;
-  final List<ProductionCountry>? productionCountries;
-  final List<Season>? seasons;
-  final List<SpokenLanguage>? spokenLanguages;
+  final List<ProductionCompanyModel>? productionCompanies;
+  final List<ProductionCountryModel>? productionCountries;
+  final List<SeasonModel>? seasons;
+  final List<SpokenLanguageModel>? spokenLanguages;
   final String status;
   final String tagline;
   final String type;
   final double voteAverage;
   final int voteCount;
 
-  DetailSeriesResponse({
+  const DetailSeriesResponse({
     required this.adult,
     required this.backdropPath,
     required this.createdBy,
@@ -87,10 +87,12 @@ class DetailSeriesResponse extends Equatable {
       DetailSeriesResponse(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
-        createdBy: List<CreatedBy>.from(
-            json["created_by"].map((x) => CreatedBy.fromJson(x))),
+        createdBy: List<CreatedByModel>.from(
+            json["created_by"].map((x) => CreatedByModel.fromJson(x))),
         episodeRunTime: List<int>.from(json["episode_run_time"].map((x) => x)),
-        firstAirDate: json["first_air_date"] != null ? DateTime.parse(json["first_air_date"]) : null,
+        firstAirDate: json["first_air_date"] != null
+            ? DateTime.parse(json["first_air_date"])
+            : null,
         genres: List<GenreModel>.from(
             json["genres"].map((x) => GenreModel.fromJson(x))),
         homepage: json["homepage"],
@@ -100,11 +102,15 @@ class DetailSeriesResponse extends Equatable {
         lastAirDate: json["last_air_date"] != null
             ? DateTime.parse(json["last_air_date"])
             : null,
-        lastEpisodeToAir: json["last_episode_to_air"] != null ? TEpisodeToAir.fromJson(json["last_episode_to_air"]): null ,
+        lastEpisodeToAir: json["last_episode_to_air"] != null
+            ? TEpisodeToAirModel.fromJson(json["last_episode_to_air"])
+            : null,
         name: json["name"],
-        nextEpisodeToAir:json["next_episode_to_air"] !=null ? TEpisodeToAir.fromJson(json["next_episode_to_air"]) : null ,
-        networks: List<Network>.from(
-            json["networks"].map((x) => Network.fromJson(x))),
+        nextEpisodeToAir: json["next_episode_to_air"] != null
+            ? TEpisodeToAirModel.fromJson(json["next_episode_to_air"])
+            : null,
+        networks: List<NetworkModel>.from(
+            json["networks"].map((x) => NetworkModel.fromJson(x))),
         numberOfEpisodes: json["number_of_episodes"],
         numberOfSeasons: json["number_of_seasons"],
         originCountry: List<String>.from(json["origin_country"].map((x) => x)),
@@ -113,16 +119,16 @@ class DetailSeriesResponse extends Equatable {
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
         posterPath: json["poster_path"],
-        productionCompanies: List<ProductionCompany>.from(
+        productionCompanies: List<ProductionCompanyModel>.from(
             json["production_companies"]
-                .map((x) => ProductionCompany.fromJson(x))),
-        productionCountries: List<ProductionCountry>.from(
+                .map((x) => ProductionCompanyModel.fromJson(x))),
+        productionCountries: List<ProductionCountryModel>.from(
             json["production_countries"]
-                .map((x) => ProductionCountry.fromJson(x))),
-        seasons:
-            List<Season>.from(json["seasons"].map((x) => Season.fromJson(x))),
-        spokenLanguages: List<SpokenLanguage>.from(
-            json["spoken_languages"].map((x) => SpokenLanguage.fromJson(x))),
+                .map((x) => ProductionCountryModel.fromJson(x))),
+        seasons: List<SeasonModel>.from(
+            json["seasons"].map((x) => SeasonModel.fromJson(x))),
+        spokenLanguages: List<SpokenLanguageModel>.from(json["spoken_languages"]
+            .map((x) => SpokenLanguageModel.fromJson(x))),
         status: json["status"],
         tagline: json["tagline"],
         type: json["type"],
@@ -133,8 +139,8 @@ class DetailSeriesResponse extends Equatable {
   Map<String, dynamic> toJson() => {
         "adult": adult,
         "backdrop_path": backdropPath,
-        "created_by":
-            List<CreatedBy>.from((createdBy?.map((x) => x.toJson())) ?? []),
+        "created_by": List<CreatedByModel>.from(
+            (createdBy?.map((x) => x.toJson())) ?? []),
         "episode_run_time": List<dynamic>.from(episodeRunTime.map((x) => x)),
         "first_air_date":
             "${firstAirDate?.year.toString().padLeft(4, '0')}-${firstAirDate?.month.toString().padLeft(2, '0')}-${firstAirDate?.day.toString().padLeft(2, '0')}",
@@ -159,12 +165,12 @@ class DetailSeriesResponse extends Equatable {
         "overview": overview,
         "popularity": popularity,
         "poster_path": posterPath,
-        "production_companies": List<ProductionCompany>.from(
+        "production_companies": List<ProductionCompanyModel>.from(
             (productionCompanies?.map((x) => x.toJson())) ?? []),
-        "production_countries": List<ProductionCountry>.from(
+        "production_countries": List<ProductionCountryModel>.from(
             (productionCountries?.map((x) => x.toJson())) ?? []),
         "seasons": List<dynamic>.from((seasons?.map((x) => x.toJson())) ?? []),
-        "spoken_languages": List<SpokenLanguage>.from(
+        "spoken_languages": List<SpokenLanguageModel>.from(
             (spokenLanguages?.map((x) => x.toJson())) ?? []),
         "status": status,
         "tagline": tagline,
@@ -175,29 +181,30 @@ class DetailSeriesResponse extends Equatable {
 
   SeriesDetail toEntity() {
     return SeriesDetail(
-      backdropPath: this.backdropPath,
-      genres: this.genres?.map((genre) => genre.toEntity()).toList() ?? [],
-      homepage: this.homepage,
-      id: this.id,
-      inProduction: this.inProduction,
-      languages: this.languages ?? [],
-      lastAirDate: this.lastAirDate,
-      name: this.name,
-      numberOfEpisodes: this.numberOfEpisodes,
-      numberOfSeasons: this.numberOfSeasons,
-      seasons: this.seasons?.map((s) => s.toEntity()).toList() ?? [],
-      originCountry: this.originCountry ?? [],
-      originalLanguage: this.originalLanguage,
-      originalName: this.originalName,
-      overview: this.overview,
-      popularity: this.popularity,
-      posterPath: this.posterPath,
-      productionCompanies: this.productionCompanies ?? [],
-      status: this.status,
-      tagline: this.tagline,
-      type: this.type,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
+      backdropPath: backdropPath,
+      genres: genres?.map((genre) => genre.toEntity()).toList() ?? [],
+      homepage: homepage,
+      id: id,
+      inProduction: inProduction,
+      languages: languages ?? [],
+      lastAirDate: lastAirDate,
+      name: name,
+      numberOfEpisodes: numberOfEpisodes,
+      numberOfSeasons: numberOfSeasons,
+      seasons: seasons?.map((s) => s.toEntity()).toList() ?? [],
+      originCountry: originCountry ?? [],
+      originalLanguage: originalLanguage,
+      originalName: originalName,
+      overview: overview,
+      popularity: popularity,
+      posterPath: posterPath,
+      productionCompanies:
+          productionCompanies?.map((p) => p.toEntity()).toList() ?? [],
+      status: status,
+      tagline: tagline,
+      type: type,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
     );
   }
 

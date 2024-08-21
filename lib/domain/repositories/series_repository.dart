@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:movieflutter/common/failure.dart';
 
-import '../entities/series.dart';
-import '../entities/series/tv_detail.dart';
+import '../entities/series/series.dart';
+import '../entities/series/series_detail.dart';
 
 abstract class SeriesRepository {
   Future<Either<Failure, List<Series>>> getNowPlayingSeries();

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:movieflutter/domain/entities/series.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
 
 class SeriesModel extends Equatable {
   bool adult;
@@ -45,7 +45,7 @@ class SeriesModel extends Equatable {
         overview: json["overview"],
         popularity: json["popularity"]?.toDouble(),
         posterPath: json["poster_path"],
-        firstAirDate: DateTime.parse(json["first_air_date"]),
+        firstAirDate: DateTime.tryParse(json["first_air_date"]),
         name: json["name"],
         voteAverage: json["vote_average"]?.toDouble(),
         voteCount: json["vote_count"],
@@ -53,7 +53,7 @@ class SeriesModel extends Equatable {
 
   Map<String, dynamic> toJson() => {
         "adult": adult,
-        "backdrop_path": backdropPath == null ? null : backdropPath,
+        "backdrop_path": backdropPath,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
         "id": id,
         "origin_country": List<dynamic>.from(originCountry.map((x) => x)),

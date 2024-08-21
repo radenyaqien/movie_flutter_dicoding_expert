@@ -32,6 +32,7 @@ import 'package:movieflutter/presentation/provider/movie_detail_notifier.dart';
 import 'package:movieflutter/presentation/provider/movie_list_notifier.dart';
 import 'package:movieflutter/presentation/provider/movie_search_notifier.dart';
 import 'package:movieflutter/presentation/provider/popular_movies_notifier.dart';
+import 'package:movieflutter/presentation/provider/series/nowplaying_series_notifier.dart';
 import 'package:movieflutter/presentation/provider/series/popular_series_notifier.dart';
 import 'package:movieflutter/presentation/provider/series/series_detail_notifier.dart';
 import 'package:movieflutter/presentation/provider/series/series_list_notifier.dart';
@@ -100,6 +101,11 @@ void init() {
   locator.registerFactory(
     () => TopRatedSeriesNotifier(
       getTopRatedSeries: locator(),
+    ),
+  );
+  locator.registerFactory(
+    () => NowPlayingSeriesNotifier(
+      getNowPlayingSeries: locator(),
     ),
   );
   locator.registerFactory(

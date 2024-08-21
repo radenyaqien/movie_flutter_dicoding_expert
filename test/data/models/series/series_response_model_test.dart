@@ -10,9 +10,9 @@ void main() {
   final tSeriesModel = SeriesModel(
       adult: false,
       backdropPath: "/backdrop_path.jpg",
-      genreIds: [35, 10766, 10759],
+      genreIds: const [35, 10766, 10759],
       id:222289,
-      originCountry: ["BR"],
+      originCountry: const ["BR"],
       originalLanguage: "id",
       originalName: "Famili",
       overview: "Five Half Sibling",

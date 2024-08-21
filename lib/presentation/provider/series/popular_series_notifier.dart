@@ -1,5 +1,5 @@
 import 'package:movieflutter/common/state_enum.dart';
-import 'package:movieflutter/domain/entities/series.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
 import 'package:movieflutter/domain/usecases/series/get_popular_series.dart';
 import 'package:flutter/foundation.dart';
 

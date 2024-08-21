@@ -5,8 +5,8 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:movieflutter/common/constants.dart';
 import 'package:movieflutter/common/state_enum.dart';
 import 'package:movieflutter/domain/entities/genre.dart';
-import 'package:movieflutter/domain/entities/series.dart';
-import 'package:movieflutter/domain/entities/series/tv_detail.dart';
+import 'package:movieflutter/domain/entities/series/series.dart';
+import 'package:movieflutter/domain/entities/series/series_detail.dart';
 import 'package:movieflutter/presentation/provider/series/series_detail_notifier.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +15,7 @@ class SeriesDetailPage extends StatefulWidget {
 
   final int id;
 
-  SeriesDetailPage({required this.id});
+  const SeriesDetailPage({super.key, required this.id});
 
   @override
   _SeriesDetailPageState createState() => _SeriesDetailPageState();
@@ -25,8 +25,8 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
   @override
   void initState() {
     super.initState();
-    if(kDebugMode){
-      print("tv series id asas" + widget.id.toString());
+    if (kDebugMode) {
+      print("tv series id asas${widget.id}");
     }
 
     Future.microtask(() {
@@ -43,7 +43,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
       body: Consumer<SeriesDetailNotifier>(
         builder: (context, provider, child) {
           if (provider.seriesState == RequestState.Loading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (provider.seriesState == RequestState.Loaded) {
@@ -51,7 +51,7 @@ class _SeriesDetailPageState extends State<SeriesDetailPage> {
             return SafeArea(
               child: DetailSeriesContent(
                 series,
-                provider.movieRecommendations,
+                provider.seriesRecommendations,
                 provider.isAddedToWatchlist,
               ),
             );
@@ -69,7 +69,7 @@ class DetailSeriesContent extends StatelessWidget {
   final List<Series> recommendations;
   final bool isAddedWatchlist;
 
-  DetailSeriesContent(this.series, this.recommendations, this.isAddedWatchlist);
+  const DetailSeriesContent(this.series, this.recommendations, this.isAddedWatchlist, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +79,17 @@ class DetailSeriesContent extends StatelessWidget {
         CachedNetworkImage(
           imageUrl: 'https://image.tmdb.org/t/p/w500${series.posterPath}',
           width: screenWidth,
-          placeholder: (context, url) => Center(
+          placeholder: (context, url) => const Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
             builder: (context, scrollController) {
               return Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: kRichBlack,
                   borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
                 ),
@@ -152,9 +152,9 @@ class DetailSeriesContent extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   isAddedWatchlist
-                                      ? Icon(Icons.check)
-                                      : Icon(Icons.add),
-                                  Text('Watchlist'),
+                                      ? const Icon(Icons.check)
+                                      : const Icon(Icons.add),
+                                  const Text('Watchlist'),
                                 ],
                               ),
                             ),
@@ -169,7 +169,7 @@ class DetailSeriesContent extends StatelessWidget {
                                 RatingBarIndicator(
                                   rating: series.voteAverage / 2,
                                   itemCount: 5,
-                                  itemBuilder: (context, index) => Icon(
+                                  itemBuilder: (context, index) => const Icon(
                                     Icons.star,
                                     color: kMikadoYellow,
                                   ),
@@ -178,7 +178,7 @@ class DetailSeriesContent extends StatelessWidget {
                                 Text('${series.voteAverage}')
                               ],
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Overview',
                               style: kHeading6,
@@ -186,7 +186,7 @@ class DetailSeriesContent extends StatelessWidget {
                             Text(
                               series.overview,
                             ),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             Text(
                               'Recommendations',
                               style: kHeading6,
@@ -195,7 +195,7 @@ class DetailSeriesContent extends StatelessWidget {
                               builder: (context, data, child) {
                                 if (data.recommendationState ==
                                     RequestState.Loading) {
-                                  return Center(
+                                  return const Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (data.recommendationState ==
@@ -203,7 +203,7 @@ class DetailSeriesContent extends StatelessWidget {
                                   return Text(data.message);
                                 } else if (data.recommendationState ==
                                     RequestState.Loaded) {
-                                  return Container(
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -220,20 +220,20 @@ class DetailSeriesContent extends StatelessWidget {
                                               );
                                             },
                                             child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
+                                              borderRadius: const BorderRadius.all(
                                                 Radius.circular(8),
                                               ),
                                               child: CachedNetworkImage(
                                                 imageUrl:
                                                     'https://image.tmdb.org/t/p/w500${movie.posterPath}',
                                                 placeholder: (context, url) =>
-                                                    Center(
+                                                    const Center(
                                                   child:
                                                       CircularProgressIndicator(),
                                                 ),
                                                 errorWidget:
                                                     (context, url, error) =>
-                                                        Icon(Icons.error),
+                                                        const Icon(Icons.error),
                                               ),
                                             ),
                                           ),
@@ -274,7 +274,7 @@ class DetailSeriesContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -288,7 +288,7 @@ class DetailSeriesContent extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name + ', ';
+      result += '${genre.name}, ';
     }
 
     if (result.isEmpty) {
@@ -296,16 +296,5 @@ class DetailSeriesContent extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 }
