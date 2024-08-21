@@ -32,8 +32,13 @@ import 'package:movieflutter/presentation/provider/top_rated_movies_notifier.dar
 import 'package:movieflutter/presentation/provider/watchlist_movie_notifier.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+import 'common/ssl_pinning/http_ssl_pinning.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await HttpSSLPinning.init();
   di.init();
+
   runApp(const MyApp());
 }
 

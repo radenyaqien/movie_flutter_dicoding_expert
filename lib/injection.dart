@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:http/http.dart' as http;
+import 'package:movieflutter/common/ssl_pinning/http_ssl_pinning.dart';
 import 'package:movieflutter/data/datasources/db/database_helper.dart';
 import 'package:movieflutter/data/datasources/movie_local_data_source.dart';
 import 'package:movieflutter/data/datasources/movie_remote_data_source.dart';
@@ -174,5 +174,5 @@ void init() {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // external
-  locator.registerLazySingleton(() => http.Client());
+  locator.registerLazySingleton(() => HttpSSLPinning.client);
 }
