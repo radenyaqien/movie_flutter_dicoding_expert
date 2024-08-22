@@ -1,0 +1,14 @@
+import 'package:dartz/dartz.dart';
+import 'package:domain/util/failure.dart';
+import 'package:domain/entities/movie_detail.dart';
+import 'package:domain/repositories/movie_repository.dart';
+
+class RemoveWatchlist {
+  final MovieRepository repository;
+
+  RemoveWatchlist(this.repository);
+
+  Future<Either<Failure, String>> execute(MovieDetail movie) {
+    return repository.removeWatchlist(movie);
+  }
+}
