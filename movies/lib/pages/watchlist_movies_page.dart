@@ -1,9 +1,10 @@
-import 'package:common/common/state_enum.dart';
 import 'package:commonui/utils.dart';
 import 'package:commonui/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:movies/bloc/watchlist_movie_notifier.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/watchlist/movie_watchlist_bloc.dart';
+import 'package:movies/bloc/watchlist/movie_watchlist_event.dart';
+import 'package:movies/bloc/watchlist/movie_watchlist_state.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   const WatchlistMoviesPage({super.key});
@@ -18,8 +19,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   void initState() {
     super.initState();
     Future.microtask(() =>
-        Provider.of<WatchlistMovieNotifier>(context, listen: false)
-            .fetchWatchlistMovies());
+        context.read<MovieWatchListBloc>().add(const OnGetWatchListMovie()));
   }
 
   @override
@@ -30,8 +30,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistMovieNotifier>(context, listen: false)
-        .fetchWatchlistMovies();
+    context.read<MovieWatchListBloc>().add(const OnGetWatchListMovie());
   }
 
   @override
@@ -41,30 +40,40 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
         title: const Text('Watchlist'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistMovieNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.watchlistState == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.watchlistMovies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: data.watchlistMovies.length,
-              );
-            } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
-              );
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<MovieWatchListBloc, MovieWatchListState>(
+              builder: (context, state) {
+            switch (state) {
+              case WatchlistMovieEmpty():
+                return const Center(
+                  child: Text("Empty"),
+                );
+              case WatchlistMovieLoading():
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              case WatchlistMovieError():
+                return Center(
+                  key: const Key('error_message'),
+                  child: Text(state.message),
+                );
+
+              case WatchlistMovieHasData():
+                return Expanded(
+                  child: ListView.builder(
+                    itemBuilder: (context, index) {
+                      final movie = state.movies[index];
+                      return MovieCard(movie);
+                    },
+                    itemCount: state.movies.length,
+                  ),
+                );
+              default:
+                return const Center(
+                  child: Text("Save Your Watch List Movie Here"),
+                );
             }
-          },
-        ),
-      ),
+          })),
     );
   }
 

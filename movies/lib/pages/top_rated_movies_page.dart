@@ -1,9 +1,9 @@
-import 'package:common/common/state_enum.dart';
 import 'package:commonui/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../bloc/top_rated_movies_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/toprated/movie_toprated_state.dart';
+import 'package:movies/bloc/toprated/toprated_movie_bloc.dart';
+import 'package:movies/bloc/toprated/toprated_movie_event.dart';
 
 class TopRatedMoviesPage extends StatefulWidget {
   const TopRatedMoviesPage({super.key});
@@ -16,42 +16,46 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(
+        () => context.read<TopRatedMovieBloc>().add(OnFetchData()));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Top Rated Movies'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<TopRatedMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.Loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return MovieCard(movie);
-                },
-                itemCount: data.movies.length,
-              );
-            } else {
-              return Center(
-                key: const Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
+        appBar: AppBar(
+          title: const Text('Top Rated Movies'),
         ),
-      ),
-    );
+        body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Expanded(
+              child: BlocBuilder<TopRatedMovieBloc, MovieTopRatedState>(
+                  builder: (context, state) {
+                switch (state) {
+                  case TopRatedMovieEmpty():
+                    return const Center(
+                      child: Text("Data Is Empty"),
+                    );
+                  case TopRatedMovieLoading():
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  case TopRatedMovieError():
+                    return Center(
+                      key: const Key('error_message'),
+                      child: Text(state.message),
+                    );
+
+                  case TopRatedMovieHasData():
+                    return ListView.builder(
+                      itemBuilder: (context, index) {
+                        final movie = state.movies[index];
+                        return MovieCard(movie);
+                      },
+                      itemCount: state.movies.length,
+                    );
+                }
+              }),
+            )));
   }
 }

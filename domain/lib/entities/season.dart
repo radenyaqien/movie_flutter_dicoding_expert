@@ -19,6 +19,7 @@ class Season extends Equatable {
   final String? posterPath;
   final int? seasonNumber;
 
+
   @override
   List<Object?> get props => [
         airDate,

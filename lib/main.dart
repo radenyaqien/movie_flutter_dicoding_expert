@@ -9,10 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movieflutter/injection.dart' as di;
 import 'package:movies/bloc/movie_detail_notifier.dart';
-import 'package:movies/bloc/movie_list_notifier.dart';
-import 'package:movies/bloc/movie_search_notifier.dart';
-import 'package:movies/bloc/popular_movies_notifier.dart';
-import 'package:movies/bloc/top_rated_movies_notifier.dart';
+import 'package:movies/bloc/nowplaying/movie_nowplaying_bloc.dart';
+import 'package:movies/bloc/popular/popular_movie_bloc.dart';
+import 'package:movies/bloc/search/movie_search_bloc.dart';
+import 'package:movies/bloc/toprated/toprated_movie_bloc.dart';
+import 'package:movies/bloc/watchlist/movie_watchlist_bloc.dart';
 import 'package:movies/pages/home_movie_page.dart';
 import 'package:movies/pages/movie_detail_page.dart';
 import 'package:movies/pages/popular_movies_page.dart';
@@ -56,19 +57,22 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
-        ),
-        ChangeNotifierProvider(
           create: (_) => di.locator<MovieDetailNotifier>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<MovieSearchBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<MovieNowPlayingBloc>(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
+        BlocProvider(
+          create: (_) => di.locator<TopRatedMovieBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MovieWatchListBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => di.locator<MoviePopularBloc>(),
         ),
         BlocProvider(
           create: (_) => di.locator<WatchlistTvSeriesBloc>(),

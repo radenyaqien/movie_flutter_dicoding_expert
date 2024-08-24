@@ -32,12 +32,12 @@
             <td></td>
             <td class="headerItem">Lines:</td>
             <td class="headerCovTableEntry">43</td>
-            <td class="headerCovTableEntry">49</td>
-            <td class="headerCovTableEntryMed">87.8 %</td>
+            <td class="headerCovTableEntry">48</td>
+            <td class="headerCovTableEntryMed">89.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-22 19:54:23</td>
+            <td class="headerValue">2024-08-24 10:34:44</td>
             <td></td>
           </tr>
           <tr><td><img src="../../../../glass.png" width=3 height=3 alt=""></td></tr>
@@ -80,7 +80,7 @@
 <a name="22"><span class="lineNum">      22 </span>            :   Future&lt;Either&lt;Failure, SeriesDetail&gt;&gt; getSeriesDetail(int id) async {</a>
 <a name="23"><span class="lineNum">      23 </span>            :     try {</a>
 <a name="24"><span class="lineNum">      24 </span><span class="lineNoCov">          0 :       final result = await remoteDataSource.getSeriesDetail(id);</span></a>
-<a name="25"><span class="lineNum">      25 </span><span class="lineNoCov">          0 :       print(&quot;detail$result&quot;);</span></a>
+<a name="25"><span class="lineNum">      25 </span>            : </a>
 <a name="26"><span class="lineNum">      26 </span><span class="lineNoCov">          0 :       return Right(result.toEntity());</span></a>
 <a name="27"><span class="lineNum">      27 </span><span class="lineNoCov">          0 :     } on ServerException {</span></a>
 <a name="28"><span class="lineNum">      28 </span>            :       return const Left(ServerFailure(''));</a>

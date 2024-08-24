@@ -37,6 +37,7 @@ dependencies:
     path : ../commonui
 
 dev_dependencies:
+  mockito: ^5.0.8
   flutter_test:
     sdk: flutter
 

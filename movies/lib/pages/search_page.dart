@@ -1,14 +1,12 @@
-import 'package:common/common/state_enum.dart';
 import 'package:commonui/constants.dart';
 import 'package:commonui/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../bloc/movie_search_notifier.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/bloc/search/movie_search_bloc.dart';
+import 'package:movies/bloc/search/movie_search_event.dart';
+import 'package:movies/bloc/search/movie_search_state.dart';
 
 class SearchPage extends StatelessWidget {
-
-
   const SearchPage({super.key});
 
   @override
@@ -24,8 +22,7 @@ class SearchPage extends StatelessWidget {
           children: [
             TextField(
               onSubmitted: (query) {
-                Provider.of<MovieSearchNotifier>(context, listen: false)
-                    .fetchMovieSearch(query);
+                context.read<MovieSearchBloc>().add(OnSearchMovie(query));
               },
               decoration: const InputDecoration(
                 hintText: 'Search title',
@@ -39,31 +36,39 @@ class SearchPage extends StatelessWidget {
               'Search Result',
               style: kHeading6,
             ),
-            Consumer<MovieSearchNotifier>(
-              builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+            BlocBuilder<MovieSearchBloc, MovieSearchState>(
+                builder: (ctx, state) {
+              switch (state) {
+                case SearchMovieEmpty():
+                  return const Center(
+                    child: Text("No Data displayed"),
+                  );
+                case SearchMovieLoading():
                   return const Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
-                  final result = data.searchResult;
+                case SearchMovieError():
+                  return Center(
+                    key: const Key('error_message'),
+                    child: Text(state.message),
+                  );
+                case SearchMovieHasData():
                   return Expanded(
                     child: ListView.builder(
                       padding: const EdgeInsets.all(8),
                       itemBuilder: (context, index) {
-                        final movie = data.searchResult[index];
+                        final movie = state.movies[index];
                         return MovieCard(movie);
                       },
-                      itemCount: result.length,
+                      itemCount: state.movies.length,
                     ),
                   );
-                } else {
-                  return Expanded(
-                    child: Container(),
+                case SearchMovieInitial():
+                  return const Center(
+                    child: Text("Search Your favorite Movie"),
                   );
-                }
-              },
-            ),
+              }
+            })
           ],
         ),
       ),
